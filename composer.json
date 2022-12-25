@@ -1,0 +1,22 @@
+{
+    "name": "micro/plugin-oauth2-client-keycloak",
+    "description": "Micro Framework: Adapter for using Keycloak as an authorization server based on the OAuth2 protocol.",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0",
+    "autoload": {
+        "psr-4": {
+            "Micro\\Plugin\\OAuth2\\Client\\Keycloak\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stanislau Komar",
+            "email": "stanislau_komar@epam.com"
+        }
+    ],
+    "require": {
+        "micro/plugin-oauth2-client": "^1",
+        "micro/plugin-security": "^1"
+    }
+}
