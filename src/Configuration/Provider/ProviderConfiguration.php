@@ -21,12 +21,14 @@ use Micro\Plugin\OAuth2\Client\Keycloak\Provider\KeycloakProviderConfigurationIn
  */
 class ProviderConfiguration extends OAuth2ClientProviderConfiguration implements KeycloakProviderConfigurationInterface
 {
+    const CFG_REALM = 'MICRO_OAUTH2_%s_REALM';
+
     /**
      * {@inheritDoc}
      */
     public function getRealm(): string
     {
-        return 'micro';
+        return (string) $this->configuration->get(self::CFG_REALM);
     }
 
     /**
