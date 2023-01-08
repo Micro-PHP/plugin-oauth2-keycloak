@@ -18,7 +18,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
-use Micro\Plugin\OAuth2\Client\Keycloak\Configuration\Provider\ProviderConfiguration;
+use Micro\Plugin\OAuth2\Client\Configuration\Provider\OAuth2ClientProviderConfigurationInterface;
 use Micro\Plugin\Security\Facade\SecurityFacadeInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -30,12 +30,12 @@ class OAuth2Provider extends AbstractProvider
     use BearerAuthorizationTrait;
 
     /**
-     * @param ProviderConfiguration         $providerConfiguration
-     * @param SecurityFacadeInterface       $securityFacade
+     * @param OAuth2ClientProviderConfigurationInterface            $providerConfiguration
+     * @param SecurityFacadeInterface                               $securityFacade
      */
     public function __construct(
-        private readonly ProviderConfiguration      $providerConfiguration,
-        private readonly SecurityFacadeInterface    $securityFacade
+        private readonly OAuth2ClientProviderConfigurationInterface         $providerConfiguration,
+        private readonly SecurityFacadeInterface                            $securityFacade
     )
     {
         parent::__construct([

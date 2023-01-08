@@ -16,6 +16,7 @@ namespace Micro\Plugin\OAuth2\Client\Keycloak;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
+use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
 use Micro\Framework\Kernel\Plugin\PluginDependedInterface;
 use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
 use Micro\Plugin\OAuth2\Client\Configuration\OAuth2ClientPluginConfigurationInterface;
@@ -28,7 +29,7 @@ use Micro\Plugin\Security\Facade\SecurityFacadeInterface;
  *
  * @method OAuth2ClientPluginConfigurationInterface configuration()
  */
-class OAuth2KeycloakProviderPlugin implements OAuth2ClientProviderPluginInterface, PluginDependedInterface, ConfigurableInterface
+class OAuth2KeycloakProviderPlugin implements OAuth2ClientProviderPluginInterface, DependencyProviderInterface, ConfigurableInterface
 {
 
     use PluginConfigurationTrait;
@@ -62,7 +63,7 @@ class OAuth2KeycloakProviderPlugin implements OAuth2ClientProviderPluginInterfac
     /**
      * {@inheritDoc}
      */
-    public function getDependedPlugins(Container $container): void
+    public function provideDependencies(Container $container): void
     {
         $this->container = $container;
     }
