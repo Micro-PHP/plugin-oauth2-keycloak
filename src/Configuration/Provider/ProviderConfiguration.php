@@ -21,12 +21,15 @@ use Micro\Plugin\OAuth2\Client\Keycloak\Provider\KeycloakProviderConfigurationIn
  */
 class ProviderConfiguration extends OAuth2ClientProviderConfiguration implements KeycloakProviderConfigurationInterface
 {
+    const CFG_REALM = 'MICRO_OAUTH2_%s_REALM';
+    const CFG_SCOPES = 'MICRO_OAUTH2_%s_SCOPES';
+
     /**
      * {@inheritDoc}
      */
     public function getRealm(): string
     {
-        return 'micro';
+        return $this->get(self::CFG_REALM, 'micro');
     }
 
     /**
@@ -34,7 +37,7 @@ class ProviderConfiguration extends OAuth2ClientProviderConfiguration implements
      */
     public function getScopesDefault(): array
     {
-        return ['email', 'profile'];
+        return $this->explodeStringToArray($this->get(self::CFG_SCOPES, 'email,profile'));
     }
 
     /**
