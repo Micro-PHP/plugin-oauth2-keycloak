@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\OAuth2\Client\Keycloak\Provider;
+namespace Micro\Plugin\OAuth2\Keycloak\Client\Provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\OAuth2\Client\Keycloak\Provider;
+namespace Micro\Plugin\OAuth2\Keycloak\Client\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -30,14 +30,13 @@ class OAuth2Provider extends AbstractProvider
     use BearerAuthorizationTrait;
 
     /**
-     * @param OAuth2ClientProviderConfigurationInterface            $providerConfiguration
-     * @param SecurityFacadeInterface                               $securityFacade
+     * @param OAuth2ClientProviderConfigurationInterface $providerConfiguration
+     * @param SecurityFacadeInterface                    $securityFacade
      */
     public function __construct(
-        private readonly OAuth2ClientProviderConfigurationInterface         $providerConfiguration,
-        private readonly SecurityFacadeInterface                            $securityFacade
-    )
-    {
+        private readonly OAuth2ClientProviderConfigurationInterface $providerConfiguration,
+        private readonly SecurityFacadeInterface $securityFacade
+    ) {
         parent::__construct([
             'authServerUrl' =>  $this->providerConfiguration->getUrlAuthorization(),
             'clientId'  =>      $providerConfiguration->getClientId(),

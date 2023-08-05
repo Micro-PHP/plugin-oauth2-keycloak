@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\OAuth2\Client\Keycloak\Configuration\Provider;
+namespace Micro\Plugin\OAuth2\Keycloak\Client\Configuration\Provider;
 
 use Micro\Plugin\OAuth2\Client\Configuration\Provider\OAuth2ClientProviderConfiguration;
-use Micro\Plugin\OAuth2\Client\Keycloak\Provider\KeycloakProviderConfigurationInterface;
+use Micro\Plugin\OAuth2\Keycloak\Client\Provider\KeycloakProviderConfigurationInterface;
 
 /**
  * @author Stanislau Komar <head.trackingsoft@gmail.com>

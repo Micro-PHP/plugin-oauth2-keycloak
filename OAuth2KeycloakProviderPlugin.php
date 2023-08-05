@@ -11,16 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\OAuth2\Client\Keycloak;
+namespace Micro\Plugin\OAuth2\Keycloak\Client;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
-use Micro\Component\DependencyInjection\Container;
-use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
-use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
-use Micro\Framework\Kernel\Plugin\PluginDependedInterface;
-use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
+use Micro\Framework\DependencyInjection\Container;
+use Micro\Framework\BootConfiguration\Plugin\ConfigurableInterface;
+use Micro\Framework\BootDependency\Plugin\DependencyProviderInterface;
+use Micro\Framework\BootConfiguration\Plugin\PluginConfigurationTrait;
 use Micro\Plugin\OAuth2\Client\Configuration\OAuth2ClientPluginConfigurationInterface;
-use Micro\Plugin\OAuth2\Client\Keycloak\Provider\OAuth2Provider;
+use Micro\Plugin\OAuth2\Keycloak\Client\Provider\OAuth2Provider;
 use Micro\Plugin\OAuth2\Client\Provider\OAuth2ClientProviderPluginInterface;
 use Micro\Plugin\Security\Facade\SecurityFacadeInterface;
 
