@@ -17,9 +17,7 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
 use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
-use Micro\Framework\Kernel\Plugin\PluginDependedInterface;
 use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
-use Micro\Plugin\OAuth2\Client\Configuration\OAuth2ClientPluginConfigurationInterface;
 use Micro\Plugin\OAuth2\Client\Keycloak\Provider\OAuth2Provider;
 use Micro\Plugin\OAuth2\Client\Provider\OAuth2ClientProviderPluginInterface;
 use Micro\Plugin\Security\Facade\SecurityFacadeInterface;
@@ -27,7 +25,7 @@ use Micro\Plugin\Security\Facade\SecurityFacadeInterface;
 /**
  * @author Stanislau Komar <head.trackingsoft@gmail.com>
  *
- * @method OAuth2ClientPluginConfigurationInterface configuration()
+ * @method OAuth2KeycloakProviderPluginConfiguration configuration()
  */
 class OAuth2KeycloakProviderPlugin implements OAuth2ClientProviderPluginInterface, DependencyProviderInterface, ConfigurableInterface
 {
@@ -46,9 +44,13 @@ class OAuth2KeycloakProviderPlugin implements OAuth2ClientProviderPluginInterfac
      */
     public function createProvider(string $providerName): AbstractProvider
     {
+        $configuration = $this->configuration();
+
         return new OAuth2Provider(
-            $this->configuration()->getProviderConfiguration($providerName),
-            $this->container->get(SecurityFacadeInterface::class),
+            $configuration->getProviderConfiguration($providerName),
+            $this->container->has(SecurityFacadeInterface::class)
+                ? $this->container->get(SecurityFacadeInterface::class)
+                : $configuration->createUserInfoJwtDecoder(),
         );
     }
 

@@ -29,15 +29,17 @@ class OAuth2Provider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
+    private readonly SecurityFacadeInterface|UserInfoJwtDecoder $jwtDecoder;
+
     /**
-     * @param OAuth2ClientProviderConfigurationInterface            $providerConfiguration
-     * @param SecurityFacadeInterface                               $securityFacade
+     * @param KeycloakProviderConfigurationInterface $providerConfiguration
      */
     public function __construct(
-        private readonly OAuth2ClientProviderConfigurationInterface         $providerConfiguration,
-        private readonly SecurityFacadeInterface                            $securityFacade
+        private readonly OAuth2ClientProviderConfigurationInterface $providerConfiguration,
+        SecurityFacadeInterface|UserInfoJwtDecoder $securityFacade
     )
     {
+        $this->jwtDecoder = $securityFacade;
         parent::__construct([
             'authServerUrl' =>  $this->providerConfiguration->getUrlAuthorization(),
             'clientId'  =>      $providerConfiguration->getClientId(),
@@ -118,6 +120,9 @@ class OAuth2Provider extends AbstractProvider
     {
         $response = $this->fetchResourceOwnerDetails($token);
         if (array_key_exists('jwt', $response)) {
+            if (!is_string($response['jwt'])) {
+                throw new \UnexpectedValueException('Expected a signed JWT string in userinfo.');
+            }
             $response = $response['jwt'];
         }
 
@@ -127,7 +132,7 @@ class OAuth2Provider extends AbstractProvider
     }
 
     /**
-     * Attempts to decrypt the given response.
+     * Verifies a signed response or returns the plain JSON profile.
      *
      * @param  string|array $response
      *
@@ -139,7 +144,11 @@ class OAuth2Provider extends AbstractProvider
             return $response;
         }
 
-        return $this->securityFacade
+        if ($this->jwtDecoder instanceof UserInfoJwtDecoder) {
+            return $this->jwtDecoder->decode($response);
+        }
+
+        return $this->jwtDecoder
             ->decodeToken($response)
             ->getParameters();
     }
