@@ -15,6 +15,7 @@ namespace Micro\Plugin\OAuth2\Client\Keycloak;
 
 use Micro\Plugin\OAuth2\Client\Configuration\Provider\OAuth2ClientProviderConfigurationInterface;
 use Micro\Plugin\OAuth2\Client\Keycloak\Configuration\Provider\ProviderConfiguration;
+use Micro\Plugin\OAuth2\Client\Keycloak\Provider\UserInfoJwtDecoder;
 use Micro\Plugin\OAuth2\Client\OAuth2ClientPluginConfiguration;
 
 /**
@@ -30,5 +31,10 @@ class OAuth2KeycloakProviderPluginConfiguration extends OAuth2ClientPluginConfig
     public function getProviderConfiguration(string $providerName): OAuth2ClientProviderConfigurationInterface
     {
         return new ProviderConfiguration($this->configuration, $providerName);
+    }
+
+    public function createUserInfoJwtDecoder(): UserInfoJwtDecoder
+    {
+        return new UserInfoJwtDecoder($this->configuration);
     }
 }

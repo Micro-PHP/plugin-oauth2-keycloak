@@ -15,7 +15,17 @@
         }
     ],
     "require": {
-        "micro/plugin-oauth2-client": "^1",
-        "micro/plugin-security": "^1"
+        "php": "~8.2.0 || ~8.3.0",
+        "firebase/php-jwt": "^7.0",
+        "micro/plugin-oauth2-client": "^1.6"
+    },
+    "require-dev": {
+        "ext-openssl": "*",
+        "guzzlehttp/guzzle": "^7.8.2 || ^8.0",
+        "guzzlehttp/psr7": "^2.6.3 || ^3.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "scripts": {
+        "test": "@php -d error_reporting=-1 vendor/bin/phpunit"
     }
 }
